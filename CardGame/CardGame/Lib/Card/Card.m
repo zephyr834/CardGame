@@ -15,6 +15,16 @@
 
 @implementation Card
 
+-(BOOL)isChosen
+{
+    return _chosen;
+}
+
+-(BOOL)isMatched
+{
+    return _matched;
+}
+
 - (int) match:(NSArray *)otherCards
 {
     
