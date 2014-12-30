@@ -9,21 +9,30 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *flipCountLabel;
+@property (nonatomic) int flipCount;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (IBAction)touchCardButton:(UIButton *)sender
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    if ([sender.currentTitle length])
+    {
+        [sender setBackgroundImage:[UIImage imageNamed:@"Card Back"] forState:UIControlStateNormal];
+        [sender setTitle:@"" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [sender setBackgroundImage:[UIImage imageNamed:@"Card Front"] forState:UIControlStateNormal];
+        [sender setTitle:@"A♣︎" forState:UIControlStateNormal];
+    }
+    
+    self.flipCount++;
+    self.flipCountLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
