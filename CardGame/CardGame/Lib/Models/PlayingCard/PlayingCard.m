@@ -12,11 +12,24 @@
 
 @synthesize suit = _suit;
 
-- (NSString *)contents
+- (NSAttributedString *)contents
 {
     NSArray *rankStrings = [PlayingCard validRanks];
-    return [rankStrings[self.rank] stringByAppendingString:self.suit];
+    NSString *cardString = [rankStrings[self.rank] stringByAppendingString:self.suit];
+    NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:cardString];
+    if (_redSuit) {
+        [contentString addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor redColor]
+                              range:NSMakeRange(0, [contentString length])];
+    }
+    else
+    {
+        [contentString addAttribute:NSForegroundColorAttributeName
+                              value:[UIColor blackColor]
+                              range:NSMakeRange(0, [contentString length])];
+    }
     
+    return contentString;
 }
 
 - (NSString *)suit
@@ -26,7 +39,6 @@
 
 - (void) setSuit:(NSString *)suit
 {
-
     if ([[PlayingCard validSuits] containsObject:suit]) {
         _suit = suit;
     }
@@ -44,7 +56,7 @@
 
 + (NSUInteger) maxRank
 {
-    return [[self validRanks] count] -1;
+    return [[self validRanks] count] - 1;
 }
 
 - (void)setRank:(NSUInteger)rank
@@ -52,6 +64,11 @@
     if ([PlayingCard maxRank] >= rank) {
         _rank = rank;
     }
+}
+
++ (NSArray *)redSuits
+{
+    return @[@"♥︎", @"♦︎"];
 }
 
 @end

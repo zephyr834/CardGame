@@ -24,6 +24,9 @@
                 PlayingCard *newCard = [[PlayingCard alloc] init];
                 newCard.suit = suits;
                 newCard.rank = ranks;
+                if ([[PlayingCard redSuits] containsObject:suits]) {
+                    newCard.redSuit = YES;
+                }
                 [self addCard:newCard atTop:YES];
             }
         }
